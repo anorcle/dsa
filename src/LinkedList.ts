@@ -18,7 +18,11 @@ class LinkedListElement<T> {
         return this.$NEXT;
     }
 
-    public get hasNext(): Boolean {
+    public set next(element: LinkedListElement<T> | null) {
+        this.$NEXT = element;
+    }
+
+    public get hasNext(): boolean {
         return this.$NEXT != null;
     }
 
@@ -29,20 +33,16 @@ class LinkedListElement<T> {
         return this.$PREV;
     }
 
-    public get hasPrev(): Boolean {
+    public set prev(element: LinkedListElement<T> | null) {
+        this.$PREV = element;
+    }
+
+    public get hasPrev(): boolean {
         return this.$PREV != null;
     }
 
     public get value(): T {
         return this.$VALUE;
-    }
-
-    public set next(element: LinkedListElement<T> | null) {
-        this.$NEXT = element;
-    }
-
-    public set prev(element: LinkedListElement<T> | null) {
-        this.$PREV = element;
     }
 
     public set value(value: T) {
@@ -221,7 +221,7 @@ class LinkedList<T> {
         return target.value;
     }
 
-    public delete(target: LinkedListElement<T>) {
+    public delete(target: LinkedListElement<T>): void {
         const prev = target.hasPrev ? target.prev : null;
         const next = target.hasNext ? target.next : null;
 
