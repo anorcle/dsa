@@ -43,3 +43,12 @@ it('Tests Queue', () => {
     expect(() => queue.front).toThrowError(accessEmptyQueue);
     expect(() => queue.pop()).toThrowError(popEmptyQueue);
 });
+
+it('Testing Queue Constructor', () => {
+    const queue = new Queue<number>([1 , 2, 3]);
+
+    expect(queue.front).toBe(1);
+    expect(queue.pop()).toBe(1);
+    expect(queue.pop()).toBe(2);
+    expect(queue.pop()).toBe(3);
+});
