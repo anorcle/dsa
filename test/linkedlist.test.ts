@@ -116,3 +116,28 @@ it('Test LinkedList Errors', () => {
     expect(() => list.popBack()).toThrowError(popBackNullElementError);
     expect(() => list.popFront()).toThrowError(popFrontNullElementError);
 });
+
+it('Test LinkedList delete Function', () => {
+    const list = new LinkedList<number>();
+
+    const elem2 = list.pushBack(2);
+    const elem100 = list.pushBack(100);
+    const elem99 = list.pushBack(99);
+    const elem60 = list.pushBack(60);
+    const elem20 = list.pushBack(20);
+
+    list.delete(elem2);
+    expect(list.toArray()).toEqual([100, 99, 60, 20]);
+
+    list.delete(elem20);
+    expect(list.toArray()).toEqual([100, 99, 60]);
+
+    list.delete(elem99);
+    expect(list.toArray()).toEqual([100, 60]);
+
+    list.delete(elem100);
+    expect(list.toArray()).toEqual([60]);
+
+    list.delete(elem60);
+    expect(list.toArray()).toEqual([]);
+});
