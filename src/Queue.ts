@@ -16,7 +16,7 @@ class Queue<T> {
         return this.list.size == 0;
     }
 
-    public get front(): T | null {
+    public get front(): T {
         if (this.list.size == 0) {
             throw new InvalidOperationError('Unable to access element from Empty Queue');
         }
@@ -28,7 +28,7 @@ class Queue<T> {
         return this.list.size;
     }
 
-    public pop(): T | null {
+    public pop(): T {
         if (this.list.size === 0) {
             throw new InvalidOperationError('Unable to pop element from empty queue');
         }
