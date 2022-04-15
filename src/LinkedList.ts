@@ -268,7 +268,10 @@ class LinkedList<T> {
     }
 }
 
-// C++ Equivalent Alias Methods
+/**
+ * ## C++ Equivalent Alias Methods
+ * @todo Resolve: warning  'T' is defined but never used  @typescript-eslint/no-unused-vars
+ */
 interface LinkedList<T> {
     push_back: typeof LinkedList.prototype.pushBack;
     push_front: typeof LinkedList.prototype.pushFront;
