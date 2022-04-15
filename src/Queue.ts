@@ -1,69 +1,38 @@
 import InvalidOperationError from '../errors/InvalidOperationError';
-
-interface QueueElement<T> {
-    value: T;
-    next: QueueElement<T> | null;
-}
+import { LinkedList } from './index';
 
 class Queue<T> {
-    private QUEUE_SIZE: number;
-    private LAST_ELEMENT: QueueElement<T> | null;
-    private FIRST_ELEMENT: QueueElement<T> | null;
+    private list: LinkedList<T>;
 
     constructor(initialArray: T[] = []) {
-        this.QUEUE_SIZE = 0;
-        this.LAST_ELEMENT = null;
-        this.FIRST_ELEMENT = null;
-
-        initialArray.forEach((value) => this.push(value));
+        this.list = new LinkedList<T>(initialArray);
     }
 
     public get size(): number {
-        return this.QUEUE_SIZE;
+        return this.list.size;
     }
 
     public get empty(): boolean {
-        return this.size == 0;
+        return this.list.size == 0;
     }
 
     public get front(): T | null {
-        if (this.FIRST_ELEMENT === null) {
+        if (this.list.size == 0) {
             throw new InvalidOperationError('Unable to access element from Empty Queue');
         }
-
-        return this.FIRST_ELEMENT.value;
+        return this.list.front;
     }
 
     public push(value: T): number {
-        const element: QueueElement<T> = {
-            value: value,
-            next: null,
-        };
-
-        if (this.size === 0 || this.LAST_ELEMENT === null || this.FIRST_ELEMENT === null) {
-            this.FIRST_ELEMENT = element;
-            this.LAST_ELEMENT = element;
-            this.QUEUE_SIZE = 1;
-            return this.size;
-        }
-
-        this.LAST_ELEMENT.next = element;
-        this.LAST_ELEMENT = element;
-        this.QUEUE_SIZE++;
-
-        return this.size;
+        this.list.pushBack(value);
+        return this.list.size;
     }
 
     public pop(): T | null {
-        if (this.FIRST_ELEMENT === null) {
+        if (this.list.size === 0) {
             throw new InvalidOperationError('Unable to pop element from empty queue');
         }
-
-        const value = this.FIRST_ELEMENT.value;
-        this.FIRST_ELEMENT = this.FIRST_ELEMENT.next;
-        this.QUEUE_SIZE--;
-
-        return value;
+        return this.list.popFront();
     }
 }
 
