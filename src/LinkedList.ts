@@ -272,6 +272,8 @@ class LinkedList<T> {
 interface LinkedList<T> {
     push_back: typeof LinkedList.prototype.pushBack;
     push_front: typeof LinkedList.prototype.pushFront;
+    insert_before: typeof LinkedList.prototype.insertBefore;
+    insert_after: typeof LinkedList.prototype.insertAfter;
     pop_back: typeof LinkedList.prototype.popBack;
     pop_front: typeof LinkedList.prototype.popFront;
     remove: typeof LinkedList.prototype.delete;
@@ -279,6 +281,8 @@ interface LinkedList<T> {
 
 LinkedList.prototype.push_back = LinkedList.prototype.pushBack;
 LinkedList.prototype.push_front = LinkedList.prototype.pushFront;
+LinkedList.prototype.insert_before = LinkedList.prototype.insertBefore;
+LinkedList.prototype.insert_after = LinkedList.prototype.insertAfter;
 LinkedList.prototype.pop_back = LinkedList.prototype.popBack;
 LinkedList.prototype.pop_front = LinkedList.prototype.popFront;
 LinkedList.prototype.remove = LinkedList.prototype.delete;
