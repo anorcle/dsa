@@ -1,0 +1,23 @@
+# .github/workflows/build.yml
+
+name: Test and Merge
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 17.x
+      - run: |
+          npm i
+          npm run test
