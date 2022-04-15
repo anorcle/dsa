@@ -174,7 +174,7 @@ class LinkedList<T> {
             this.FIRST_ELEMENT = null;
         }
         else {
-            this.LAST_ELEMENT = target.next;
+            this.FIRST_ELEMENT = target.next;
             // remove linkage for garbage collection
             this.FIRST_ELEMENT.prev = null;
             target.next = null;
