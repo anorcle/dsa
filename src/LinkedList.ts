@@ -137,6 +137,42 @@ class LinkedList<T> {
         return first;
     }
 
+    public insertBefore(target: LinkedListElement<T>, value: T): LinkedListElement<T> {
+
+        if(target == this.FIRST_ELEMENT) {
+            return this.pushFront(value);
+        }
+
+        const element = new LinkedListElement<T>(value);
+        const prev = target.prev;
+
+        prev.next = element;
+        element.next = target;
+    
+        target.prev = element;
+        element.prev = prev;
+
+        return element;
+    }
+
+    public insertAfter(target: LinkedListElement<T>, value: T): LinkedListElement<T> {
+
+        if(target == this.LAST_ELEMENT) {
+            return this.pushBack(value);
+        }
+
+        const element = new LinkedListElement<T>(value);
+        const next = target.next;
+
+        target.next = element;
+        element.next = next;
+
+        next.prev = element;
+        element.prev = target;
+
+        return element;
+    }
+
     public popBack(): T {
 
         if (this.LAST_ELEMENT === null) {

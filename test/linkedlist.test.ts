@@ -141,3 +141,45 @@ it('Test LinkedList delete Function', () => {
     list.delete(elem60);
     expect(list.toArray()).toEqual([]);
 });
+
+it('Test LinkedList insert Function', () => {
+    const list = new LinkedList<number>();
+
+    const elem2 = list.pushBack(2);
+    const elem100 = list.pushBack(100);
+    const elem99 = list.pushBack(99);
+    const elem60 = list.pushBack(60);
+    const elem20 = list.pushBack(20);
+
+    const elem10 = list.insertAfter(elem2, 10);
+    expect(list.toArray()).toEqual([2, 10, 100, 99, 60, 20]);
+
+    const elem5 = list.insertAfter(elem99, 5);
+    expect(list.toArray()).toEqual([2, 10, 100, 99, 5, 60, 20]);
+
+    const elem30 = list.insertAfter(elem20, 30);
+    expect(list.toArray()).toEqual([2, 10, 100, 99, 5, 60, 20, 30]);
+
+    const elem15 = list.insertBefore(elem2, 15);
+    expect(list.toArray()).toEqual([15, 2, 10, 100, 99, 5, 60, 20, 30]);
+
+    const elem50 = list.insertBefore(elem99, 50);
+    expect(list.toArray()).toEqual([15, 2, 10, 100, 50, 99, 5, 60, 20, 30]);
+
+    const elem35 = list.insertBefore(elem30, 35);
+    expect(list.toArray()).toEqual([15, 2, 10, 100, 50, 99, 5, 60, 20, 35, 30]);
+
+
+    // iterate and check from back
+    let itr = list.backElement;
+    expect(itr.value).toBe(30);
+
+    const listArray = list.size ? [itr.value] : [];
+    while(itr.hasPrev) {
+        itr = itr.prev;
+        listArray.push(itr.value);
+    }
+    listArray.reverse();
+
+    expect(listArray).toEqual([15, 2, 10, 100, 50, 99, 5, 60, 20, 35, 30]);
+});
