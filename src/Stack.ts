@@ -1,6 +1,6 @@
-import InvalidOperationError from "../errors/InvalidOperationError";
+import InvalidOperationError from '../errors/InvalidOperationError';
 
-class Stack <T> {
+class Stack<T> {
     private array: T[];
 
     constructor(initialArray: T[] = []) {
@@ -14,10 +14,9 @@ class Stack <T> {
     public get top(): T | null {
         const value = this.array.at(-1);
 
-        if(value == undefined) {
-            throw new InvalidOperationError("Unable to access element from empty stack");
-        }
-        else {
+        if (value == undefined) {
+            throw new InvalidOperationError('Unable to access element from empty stack');
+        } else {
             return value;
         }
     }
@@ -29,10 +28,9 @@ class Stack <T> {
     public pop(): T | null {
         const value = this.array.pop();
 
-        if(value == undefined) {
-            throw new InvalidOperationError("Unable to pop element from empty stack");
-        }
-        else {
+        if (value == undefined) {
+            throw new InvalidOperationError('Unable to pop element from empty stack');
+        } else {
             return value;
         }
     }

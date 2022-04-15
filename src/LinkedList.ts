@@ -1,4 +1,4 @@
-import InvalidOperationError from "../errors/InvalidOperationError";
+import InvalidOperationError from '../errors/InvalidOperationError';
 
 class LinkedListElement<T> {
     private $VALUE: T;
@@ -12,8 +12,8 @@ class LinkedListElement<T> {
     }
 
     public get next(): LinkedListElement<T> {
-        if(this.$NEXT == null) {
-            throw new InvalidOperationError("LinkedList Error: Accessing Next Element is Null");
+        if (this.$NEXT == null) {
+            throw new InvalidOperationError('LinkedList Error: Accessing Next Element is Null');
         }
         return this.$NEXT;
     }
@@ -27,8 +27,8 @@ class LinkedListElement<T> {
     }
 
     public get prev(): LinkedListElement<T> {
-        if(this.$PREV == null) {
-            throw new InvalidOperationError("LinkedList Error: Accessing Previous Element is Null");
+        if (this.$PREV == null) {
+            throw new InvalidOperationError('LinkedList Error: Accessing Previous Element is Null');
         }
         return this.$PREV;
     }
@@ -51,7 +51,6 @@ class LinkedListElement<T> {
 }
 
 class LinkedList<T> {
-
     private LINKEDLIST_SIZE: number;
     private LAST_ELEMENT: LinkedListElement<T> | null;
     private FIRST_ELEMENT: LinkedListElement<T> | null;
@@ -61,7 +60,7 @@ class LinkedList<T> {
         this.LAST_ELEMENT = null;
         this.FIRST_ELEMENT = null;
 
-        initialArray.forEach(value => this.pushBack(value));
+        initialArray.forEach((value) => this.pushBack(value));
     }
 
     private initializeWith(element: LinkedListElement<T>) {
@@ -80,14 +79,14 @@ class LinkedList<T> {
 
     public get frontElement(): LinkedListElement<T> {
         if (this.FIRST_ELEMENT === null) {
-            throw new InvalidOperationError("LinkedList Error: Accessing First Element, which is null");
+            throw new InvalidOperationError('LinkedList Error: Accessing First Element, which is null');
         }
         return this.FIRST_ELEMENT;
     }
 
     public get backElement(): LinkedListElement<T> {
         if (this.LAST_ELEMENT === null) {
-            throw new InvalidOperationError("LinkedList Error: Accessing Last Element, which is null");
+            throw new InvalidOperationError('LinkedList Error: Accessing Last Element, which is null');
         }
         return this.LAST_ELEMENT;
     }
@@ -101,7 +100,6 @@ class LinkedList<T> {
     }
 
     public pushBack(value: T): LinkedListElement<T> {
-
         const last = new LinkedListElement<T>(value);
 
         if (this.size === 0 || this.LAST_ELEMENT === null || this.FIRST_ELEMENT === null) {
@@ -123,13 +121,13 @@ class LinkedList<T> {
         const first = new LinkedListElement<T>(value);
 
         if (this.size === 0 || this.LAST_ELEMENT === null || this.FIRST_ELEMENT === null) {
-            this.initializeWith(first)
+            this.initializeWith(first);
             return first;
         }
 
         const second = this.FIRST_ELEMENT;
         this.FIRST_ELEMENT = first;
-    
+
         second.prev = first;
         first.next = second;
         this.LINKEDLIST_SIZE++;
@@ -138,8 +136,7 @@ class LinkedList<T> {
     }
 
     public insertBefore(target: LinkedListElement<T>, value: T): LinkedListElement<T> {
-
-        if(target == this.FIRST_ELEMENT) {
+        if (target == this.FIRST_ELEMENT) {
             return this.pushFront(value);
         }
 
@@ -148,7 +145,7 @@ class LinkedList<T> {
 
         prev.next = element;
         element.next = target;
-    
+
         target.prev = element;
         element.prev = prev;
 
@@ -156,8 +153,7 @@ class LinkedList<T> {
     }
 
     public insertAfter(target: LinkedListElement<T>, value: T): LinkedListElement<T> {
-
-        if(target == this.LAST_ELEMENT) {
+        if (target == this.LAST_ELEMENT) {
             return this.pushBack(value);
         }
 
@@ -174,18 +170,16 @@ class LinkedList<T> {
     }
 
     public popBack(): T {
-
         if (this.LAST_ELEMENT === null) {
-            throw new InvalidOperationError("LinkedList Error: Pop Back Null Element");
+            throw new InvalidOperationError('LinkedList Error: Pop Back Null Element');
         }
 
         const target = this.LAST_ELEMENT;
 
-        if(this.size === 1) {
+        if (this.size === 1) {
             this.LAST_ELEMENT = null;
             this.FIRST_ELEMENT = null;
-        }
-        else {
+        } else {
             this.LAST_ELEMENT = target.prev;
             // remove linkage for garbage collection
             this.LAST_ELEMENT.next = null;
@@ -198,18 +192,16 @@ class LinkedList<T> {
     }
 
     public popFront(): T {
-
         if (this.FIRST_ELEMENT === null) {
-            throw new InvalidOperationError("LinkedList Error: Pop Front Null Element");
+            throw new InvalidOperationError('LinkedList Error: Pop Front Null Element');
         }
 
         const target = this.FIRST_ELEMENT;
 
-        if(this.size == 1) {
+        if (this.size == 1) {
             this.LAST_ELEMENT = null;
             this.FIRST_ELEMENT = null;
-        }
-        else {
+        } else {
             this.FIRST_ELEMENT = target.next;
             // remove linkage for garbage collection
             this.FIRST_ELEMENT.prev = null;
@@ -225,22 +217,19 @@ class LinkedList<T> {
         const prev = target.hasPrev ? target.prev : null;
         const next = target.hasNext ? target.next : null;
 
-        if(prev && next) {
+        if (prev && next) {
             // A <-> T <-> B
             prev.next = next; // A -> B
             next.prev = prev; // B -> A
-        }
-        else if(next) {
+        } else if (next) {
             // NULL <-> T <-> B
             this.FIRST_ELEMENT = next; // B
             next.prev = null;
-        }
-        else if(prev) {
+        } else if (prev) {
             // A <-> T <-> NULL
             this.LAST_ELEMENT = prev; // A
             prev.next = null;
-        }
-        else {
+        } else {
             // NULL <-> T <-> NULL
             this.FIRST_ELEMENT = null;
             this.LAST_ELEMENT = null;
@@ -257,13 +246,13 @@ class LinkedList<T> {
         const result: T[] = [];
 
         let itr = this.FIRST_ELEMENT;
-        if(itr) result.push(itr.value);
+        if (itr) result.push(itr.value);
 
-        while(itr?.hasNext) {
+        while (itr?.hasNext) {
             itr = itr.next;
             result.push(itr.value);
         }
-        
+
         return result;
     }
 }
