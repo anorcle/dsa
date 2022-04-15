@@ -11,7 +11,7 @@ class Stack<T> {
         return this.array.length == 0;
     }
 
-    public get top(): T | null {
+    public get top(): T {
         const value = this.array.at(-1);
 
         if (value == undefined) {
@@ -25,7 +25,7 @@ class Stack<T> {
         return this.array.push(element);
     }
 
-    public pop(): T | null {
+    public pop(): T {
         const value = this.array.pop();
 
         if (value == undefined) {
