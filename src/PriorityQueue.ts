@@ -1,4 +1,4 @@
-import InvalidOperationError from "../errors/InvalidOperationError";
+import InvalidOperationError from '../errors/InvalidOperationError';
 
 class PriorityQueue<T> {
     private $ARRAY: T[];
@@ -17,11 +17,11 @@ class PriorityQueue<T> {
     }
 
     private leftChildIndex(index: number): number {
-        return 2*index + 1;
+        return 2 * index + 1;
     }
 
     private rightChildIndex(index: number): number {
-        return 2*index + 2;
+        return 2 * index + 2;
     }
 
     private swap(i: number, j: number): void {
@@ -33,7 +33,7 @@ class PriorityQueue<T> {
     private shiftUp(node: number): void {
         let parent = this.parentIndex(node);
 
-        while(node > 0 && this.$ARRAY[parent] < this.$ARRAY[node]) {
+        while (node > 0 && this.$ARRAY[parent] < this.$ARRAY[node]) {
             this.swap(parent, node);
             node = parent;
             parent = this.parentIndex(node);
@@ -45,15 +45,15 @@ class PriorityQueue<T> {
         const left = this.leftChildIndex(node);
         const right = this.rightChildIndex(node);
 
-        if(left < this.size && this.$ARRAY[left] > this.$ARRAY[maxIndex]) {
+        if (left < this.size && this.$ARRAY[left] > this.$ARRAY[maxIndex]) {
             maxIndex = left;
         }
 
-        if(right < this.size && this.$ARRAY[right] > this.$ARRAY[maxIndex]) {
+        if (right < this.size && this.$ARRAY[right] > this.$ARRAY[maxIndex]) {
             maxIndex = right;
         }
 
-        if(node !== maxIndex) {
+        if (node !== maxIndex) {
             this.swap(node, maxIndex);
             this.shiftDown(maxIndex);
         }
@@ -66,8 +66,8 @@ class PriorityQueue<T> {
     }
 
     public pop(): T {
-        if(this.size == 0) {
-            throw new InvalidOperationError("PriorityQueue Error: Unable to pop from empty Queue");
+        if (this.size == 0) {
+            throw new InvalidOperationError('PriorityQueue Error: Unable to pop from empty Queue');
         }
 
         const result = this.$ARRAY[0];
@@ -80,8 +80,8 @@ class PriorityQueue<T> {
     }
 
     public top(): T {
-        if(this.size == 0) {
-            throw new InvalidOperationError("PriorityQueue Error: Unable to read from empty Queue");
+        if (this.size == 0) {
+            throw new InvalidOperationError('PriorityQueue Error: Unable to read from empty Queue');
         }
         return this.$ARRAY[0];
     }
@@ -94,6 +94,5 @@ class PriorityQueue<T> {
         return this.$ARRAY.slice();
     }
 }
-
 
 export default PriorityQueue;

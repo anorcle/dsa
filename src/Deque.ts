@@ -59,7 +59,7 @@ class Deque<T> {
  * ## C++ Equivalent Alias Methods
  * @todo Resolve: warning  'T' is defined but never used  @typescript-eslint/no-unused-vars
  */
- interface Deque<T> {
+interface Deque<T> {
     push_back: typeof Deque.prototype.pushBack;
     push_front: typeof Deque.prototype.pushFront;
     pop_back: typeof Deque.prototype.popBack;
