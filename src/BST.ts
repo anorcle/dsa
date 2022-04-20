@@ -157,6 +157,59 @@ class BST<K, V> {
 
         return node;
     }
+
+    public deleteElement(target: Node<K, V>): void {
+        const left = target.left;
+        const right = target.right;
+
+        if(right == null) {
+
+            // promote left
+            if(target.parent) {
+                if(target.parent.left == target) {
+                    target.parent.left = left;
+                }
+                else {
+                    target.parent.right = left;
+                }
+            }
+            else {
+                this.$ROOT = left;
+            }
+            if(left) left.parent = target.parent;
+
+            // dereference target
+            target.parent = target.left = target.right = null;
+        }
+        else {
+            const successor = this.next(target);
+            if(!successor) throw new Error("BST Error: Unexpected Bug!");
+
+            // replace target with it's successor
+            target.key = successor.key;
+            target.value = successor.value;
+
+            // remove successor and promote right
+            if(successor.parent) {
+                if(successor.parent.left == successor) {
+                    successor.parent.left = successor.right;
+                }
+                else {
+                    successor.parent.right = successor.right;
+                }
+            }
+            if(successor.right) successor.right.parent = successor.parent;
+        }
+    }
+
+    public delete(key: K): void {
+        const ref = this.find(key);
+        if(ref == null || ref.key != key) {
+            // tree empty or element not found
+            return;
+        }
+        this.deleteElement(ref);
+    }
 }
 
 export default BST;
