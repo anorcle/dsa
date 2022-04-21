@@ -32,7 +32,7 @@ class BST<K, V> {
         if (node.right == null) {
             return node;
         } else {
-            return this.leftDescendant(node.right);
+            return this.rightDescendant(node.right);
         }
     }
 
