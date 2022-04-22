@@ -85,8 +85,7 @@ class BST<K, V> {
         if (end && key == root.key && root.right) {
             const newRef = this.find(key, end, root.right);
             return newRef?.key == root.key ? newRef : root;
-        }
-        else if(key == root.key) {
+        } else if (key == root.key) {
             return root;
         } else if (key < root.key) {
             return this.find(key, end, root.left);
@@ -109,8 +108,7 @@ class BST<K, V> {
 
         if (key == root.key && root.right) {
             return this.insertionPoint(key, root.right);
-        }
-        else if(key == root.key) {
+        } else if (key == root.key) {
             return root;
         } else if (key < root.key) {
             return this.insertionPoint(key, root.left) || root;
@@ -155,8 +153,8 @@ class BST<K, V> {
         const list: Node<K, V>[] = [];
         let node = this.find(start);
 
-        while(node && node.key <= end) {
-            if(node.key >= start) {
+        while (node && node.key <= end) {
+            if (node.key >= start) {
                 list.push(node);
             }
             node = this.next(node);
@@ -169,16 +167,15 @@ class BST<K, V> {
         const node = new Node<K, V>(key, value);
         let ref = this.insertionPoint(key);
 
-        if(ref == null) {
+        if (ref == null) {
             this.$ROOT = node;
             return node;
         }
 
-        if(ref.key > key) {
+        if (ref.key > key) {
             ref.left = node;
             node.parent = ref;
-        }
-        else {
+        } else {
             ref.right = node;
             node.parent = ref;
         }
@@ -190,49 +187,44 @@ class BST<K, V> {
         const left = target.left;
         const right = target.right;
 
-        if(right == null) {
-
+        if (right == null) {
             // promote left
-            if(target.parent) {
-                if(target.parent.left == target) {
+            if (target.parent) {
+                if (target.parent.left == target) {
                     target.parent.left = left;
-                }
-                else {
+                } else {
                     target.parent.right = left;
                 }
-            }
-            else {
+            } else {
                 this.$ROOT = left;
             }
-            if(left) left.parent = target.parent;
+            if (left) left.parent = target.parent;
 
             // dereference target
             target.parent = target.left = target.right = null;
-        }
-        else {
+        } else {
             const successor = this.next(target);
-            if(!successor) throw new Error("BST Error: Unexpected Bug!");
+            if (!successor) throw new Error('BST Error: Unexpected Bug!');
 
             // replace target with it's successor
             target.key = successor.key;
             target.value = successor.value;
 
             // remove successor and promote right
-            if(successor.parent) {
-                if(successor.parent.left == successor) {
+            if (successor.parent) {
+                if (successor.parent.left == successor) {
                     successor.parent.left = successor.right;
-                }
-                else {
+                } else {
                     successor.parent.right = successor.right;
                 }
             }
-            if(successor.right) successor.right.parent = successor.parent;
+            if (successor.right) successor.right.parent = successor.parent;
         }
     }
 
     public delete(key: K): void {
         const ref = this.find(key);
-        if(ref == null || ref.key != key) {
+        if (ref == null || ref.key != key) {
             // tree empty or element not found
             return;
         }
