@@ -63,7 +63,7 @@ class BST<K, V> {
             return null;
         }
 
-        if (node.key > node.parent.key) {
+        if (node.key >= node.parent.key) {
             return node.parent;
         } else {
             return this.leftAncestor(node.parent);
@@ -71,23 +71,51 @@ class BST<K, V> {
     }
 
     /**
-     * ## Find Node in BST
-     * It find the node with the given key and if node doesn't exists it return the position
-     * where the node can be inserted.
+     * ## Find Node with `key` in BST
+     * It find the node with the given key and if node doesn't exists it return null
      * @param key target key to search
-     * @returns Node in BST | Null if tree is empty
+     * @param end Get first occurrence of node
+     * @returns Node in BST | Null if node not found
      */
-    public find(key: K, root: Node<K, V> | null = this.$ROOT): Node<K, V> | null {
+    public find(key: K, end: boolean = false, root: Node<K, V> | null = this.$ROOT): Node<K, V> | null {
         if (root == null) {
             return null;
         }
 
-        if (key == root.key) {
+        if (end && key == root.key && root.right) {
+            const newRef = this.find(key, end, root.right);
+            return newRef?.key == root.key ? newRef : root;
+        }
+        else if(key == root.key) {
             return root;
-        } else if (key > root.key) {
-            return this.find(key, root.right) || root;
+        } else if (key < root.key) {
+            return this.find(key, end, root.left);
         } else {
-            return this.find(key, root.left) || root;
+            return this.find(key, end, root.right);
+        }
+    }
+
+    /**
+     * ## Find Insertion Point for new Node in BST
+     * It find the node with the given key and if node doesn't exists it return the position
+     * where the node can be inserted.
+     * @param key target key to insert
+     * @returns Node in BST | Null if tree is empty
+     */
+    private insertionPoint(key: K, root: Node<K, V> | null = this.$ROOT): Node<K, V> | null {
+        if (root == null) {
+            return null;
+        }
+
+        if (key == root.key && root.right) {
+            return this.insertionPoint(key, root.right);
+        }
+        else if(key == root.key) {
+            return root;
+        } else if (key < root.key) {
+            return this.insertionPoint(key, root.left) || root;
+        } else {
+            return this.insertionPoint(key, root.right) || root;
         }
     }
 
@@ -139,19 +167,19 @@ class BST<K, V> {
 
     public insert(key: K, value: V): Node<K, V> {
         const node = new Node<K, V>(key, value);
-        const ref = this.find(key);
+        let ref = this.insertionPoint(key);
 
         if(ref == null) {
             this.$ROOT = node;
             return node;
         }
 
-        if(ref.key < key) {
-            ref.right = node;
+        if(ref.key > key) {
+            ref.left = node;
             node.parent = ref;
         }
         else {
-            ref.left = node;
+            ref.right = node;
             node.parent = ref;
         }
 
