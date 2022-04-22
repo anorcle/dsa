@@ -77,7 +77,7 @@ class BST<K, V> {
      * @param end Get first occurrence of node
      * @returns Node in BST | Null if node not found
      */
-    public find(key: K, end: boolean = false, root: Node<K, V> | null = this.$ROOT): Node<K, V> | null {
+    public find(key: K, end = false, root: Node<K, V> | null = this.$ROOT): Node<K, V> | null {
         if (root == null) {
             return null;
         }
@@ -165,7 +165,7 @@ class BST<K, V> {
 
     public insert(key: K, value: V): Node<K, V> {
         const node = new Node<K, V>(key, value);
-        let ref = this.insertionPoint(key);
+        const ref = this.insertionPoint(key);
 
         if (ref == null) {
             this.$ROOT = node;
