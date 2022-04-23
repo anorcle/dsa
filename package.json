@@ -28,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/anorcle/dsa.git/issues"
   },
-  "homepage": "https://github.com/anorcle/dsa.git#readme",
+  "homepage": "https://anorcle.github.io/dsa/",
   "devDependencies": {
     "@types/jest": "^26.0.15",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
