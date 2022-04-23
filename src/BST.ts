@@ -12,12 +12,12 @@ class Node<K, V> {
         this.parent = null;
         this.left = null;
         this.right = null;
-        this.height = 0;
+        this.height = 1;
     }
 }
 
 class BST<K, V> {
-    private $ROOT: Node<K, V> | null;
+    protected $ROOT: Node<K, V> | null;
     constructor() {
         this.$ROOT = null;
     }

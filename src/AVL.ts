@@ -17,6 +17,9 @@ class AVL<K, V> extends BST<K, V> {
             node.parent = left;
             node.left = lRight ? lRight : null;
             this.adjustHeight(node);
+            if(parent == null) {
+                this.$ROOT = left;
+            }
         }
     }
 
@@ -31,6 +34,9 @@ class AVL<K, V> extends BST<K, V> {
             node.parent = right;
             node.right = rLeft ? rLeft : null;
             this.adjustHeight(node);
+            if(parent == null) {
+                this.$ROOT = right;
+            }
         }
     }
 
@@ -63,8 +69,6 @@ class AVL<K, V> extends BST<K, V> {
     }
 
     private rebalance(node: Node<K, V>): void {
-        const parent = node.parent;
-        if(parent == null) return;
 
         const leftHeight = node.left?.height || 0;
         const rightHeight = node.right?.height || 0;
@@ -75,7 +79,9 @@ class AVL<K, V> extends BST<K, V> {
         else if(rightHeight > leftHeight + 1) {
             this.rebalanceLeft(node);
         }
-        this.rebalance(parent);
+        
+        if(node.parent)
+            this.rebalance(node.parent);
     }
 
     public insert(key: K, value: V): Node<K, V> {
