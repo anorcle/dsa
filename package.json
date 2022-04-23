@@ -4,6 +4,7 @@
   "description": "TypeScript NPM Package Boilerplate",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "docs": "typedoc --options typedoc.json",
