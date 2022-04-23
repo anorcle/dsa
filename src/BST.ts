@@ -76,7 +76,7 @@ class BST<K, V> {
         }
     }
 
-    private computeHeight(node: Node<K, V> | null): void {
+    protected adjustHeight(node: Node<K, V> | null): void {
         if(node == null) return;
 
         node.height = Math.max(
@@ -84,7 +84,7 @@ class BST<K, V> {
             node.right?.height || 0
         ) + 1;
 
-        this.computeHeight(node.parent);
+        this.adjustHeight(node.parent);
     }
 
     /**
@@ -197,7 +197,7 @@ class BST<K, V> {
             node.parent = ref;
         }
 
-        this.computeHeight(node);
+        this.adjustHeight(node);
         return node;
     }
 
@@ -217,7 +217,7 @@ class BST<K, V> {
                 this.$ROOT = left;
             }
             if (left) left.parent = target.parent;
-            this.computeHeight(target);
+            this.adjustHeight(target);
 
             // dereference target
             target.parent = target.left = target.right = null;
@@ -238,7 +238,7 @@ class BST<K, V> {
                 }
             }
             if (successor.right) successor.right.parent = successor.parent;
-            this.computeHeight(target);
+            this.adjustHeight(target);
         }
     }
 

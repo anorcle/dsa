@@ -16,6 +16,7 @@ class AVL<K, V> extends BST<K, V> {
             left.right = node;
             node.parent = left;
             node.left = lRight ? lRight : null;
+            this.adjustHeight(node);
         }
     }
 
@@ -29,12 +30,52 @@ class AVL<K, V> extends BST<K, V> {
             right.left = node;
             node.parent = right;
             node.right = rLeft ? rLeft : null;
+            this.adjustHeight(node);
         }
+    }
+
+    private rebalanceRight(node: Node<K, V>): void {
+        const left = node.left;
+        if(left == null) throw new Error("AVL Error: Unexpected Error!");
+
+        const lRHeight = left.right?.height || 0;
+        const lLHeight = left.left?.height || 0;
+
+        if(lRHeight > lLHeight) {
+            this.rotateLeft(left);
+        }
+
+        this.rotateRight(node);
+    }
+
+    private rebalanceLeft(node: Node<K, V>): void {
+        const right = node.right;
+        if(right == null) throw new Error("AVL Error: Unexpected Error!");
+
+        const rLHeight = right.left?.height || 0;
+        const rRHeight = right.right?.height || 0;
+
+        if(rLHeight > rRHeight) {
+            this.rotateRight(right);
+        }
+
+        this.rotateLeft(node);
     }
 
     private rebalance(node: Node<K, V>): void {
         const parent = node.parent;
         if(parent == null) return;
+
+        const leftHeight = node.left?.height || 0;
+        const rightHeight = node.right?.height || 0;
+
+        if(leftHeight > rightHeight + 1) {
+            this.rebalanceRight(node);
+        }
+        else if(rightHeight > leftHeight + 1) {
+            this.rebalanceLeft(node);
+        }
+        this.rebalance(parent);
     }
 
     public insert(key: K, value: V): Node<K, V> {
