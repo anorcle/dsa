@@ -4,6 +4,7 @@ class Node<K, V> {
     public right: Node<K, V> | null;
     public key: K;
     public value: V;
+    public height: number;
 
     constructor(key: K, value: V) {
         this.key = key;
@@ -11,6 +12,7 @@ class Node<K, V> {
         this.parent = null;
         this.left = null;
         this.right = null;
+        this.height = 0;
     }
 }
 
@@ -18,6 +20,10 @@ class BST<K, V> {
     private $ROOT: Node<K, V> | null;
     constructor() {
         this.$ROOT = null;
+    }
+
+    public get height(): number {
+        return this.$ROOT?.height || 0;
     }
 
     private leftDescendant(node: Node<K, V>): Node<K, V> {
@@ -70,6 +76,17 @@ class BST<K, V> {
         }
     }
 
+    private computeHeight(node: Node<K, V> | null): void {
+        if(node == null) return;
+
+        node.height = Math.max(
+            node.left?.height || 0,
+            node.right?.height || 0
+        ) + 1;
+
+        this.computeHeight(node.parent);
+    }
+
     /**
      * ## Find Node with `key` in BST
      * It find the node with the given key and if node doesn't exists it return null
@@ -101,7 +118,7 @@ class BST<K, V> {
      * @param key target key to insert
      * @returns Node in BST | Null if tree is empty
      */
-    private insertionPoint(key: K, root: Node<K, V> | null = this.$ROOT): Node<K, V> | null {
+    protected insertionPoint(key: K, root: Node<K, V> | null = this.$ROOT): Node<K, V> | null {
         if (root == null) {
             return null;
         }
@@ -180,6 +197,7 @@ class BST<K, V> {
             node.parent = ref;
         }
 
+        this.computeHeight(node);
         return node;
     }
 
@@ -199,6 +217,7 @@ class BST<K, V> {
                 this.$ROOT = left;
             }
             if (left) left.parent = target.parent;
+            this.computeHeight(target);
 
             // dereference target
             target.parent = target.left = target.right = null;
@@ -219,6 +238,7 @@ class BST<K, V> {
                 }
             }
             if (successor.right) successor.right.parent = successor.parent;
+            this.computeHeight(target);
         }
     }
 
@@ -233,3 +253,4 @@ class BST<K, V> {
 }
 
 export default BST;
+export type { Node }
