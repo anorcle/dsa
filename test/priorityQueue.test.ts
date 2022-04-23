@@ -47,7 +47,6 @@ it('Tests PriorityQueue', () => {
 it('Testing Priority Queue Constructor', () => {
     const pq = new PriorityQueue<number>([1, 2, 2, 3, 3, 4, 5, 6, 7, 8, 6, 9, 10, 11, 12, 13]);
 
-    console.log(pq.toArray)
     expect(pq.pop()).toBe(13);
     expect(pq.pop()).toBe(12);
     expect(pq.pop()).toBe(11);
@@ -59,13 +58,9 @@ it('Testing Priority Queue Constructor', () => {
     pq.push(100);
     pq.push(900);
 
-    console.log(pq.toArray)
-
     expect(pq.pop()).toBe(1000);
     expect(pq.pop()).toBe(900);
     expect(pq.pop()).toBe(100);
-
-    console.log(pq.toArray)
 
     expect(pq.pop()).toBe(7);
     expect(pq.pop()).toBe(6);
