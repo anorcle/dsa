@@ -4,8 +4,10 @@
   "description": "TypeScript NPM Package Boilerplate",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
     "build": "tsc",
+    "docs": "typedoc --options typedoc.json",
     "format": "prettier --write \"src/**/*.(js|ts)\"",
     "lint": "eslint src --ext .js,.ts",
     "lint:fix": "eslint src --fix --ext .js,.ts",
@@ -40,5 +42,8 @@
   },
   "files": [
     "dist/**/*"
-  ]
+  ],
+  "dependencies": {
+    "typedoc": "^0.22.15"
+  }
 }
