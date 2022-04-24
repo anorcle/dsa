@@ -1,10 +1,5 @@
 import { AVL } from "../src/index";
-import type { Node } from "../src/BST";
 import InvalidOperationError from '../errors/InvalidOperationError';
-
-const rand = (min: number, max: number): number => {
-    return Math.floor(min + (max - min)*Math.random())
-}
 
 const compare = (array: number[], avl: AVL<number, null>): void => {
     array.sort((a, b) => a - b);

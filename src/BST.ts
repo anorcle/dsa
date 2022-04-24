@@ -248,8 +248,8 @@ class BST<K, V> {
         this.deleteElement(ref);
     }
 
-    private inorder(root: Node<K, V> | null, array: K[] = []): K[] {    
-        if(root == null) return array;
+    private inorder(root: Node<K, V> | null, array: K[] = []): K[] {
+        if (root == null) return array;
         this.inorder(root.left, array);
         array.push(root.key);
         this.inorder(root.right, array);
