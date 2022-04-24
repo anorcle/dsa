@@ -77,12 +77,9 @@ class BST<K, V> {
     }
 
     protected adjustHeight(node: Node<K, V> | null): void {
-        if(node == null) return;
+        if (node == null) return;
 
-        node.height = Math.max(
-            node.left?.height || 0,
-            node.right?.height || 0
-        ) + 1;
+        node.height = Math.max(node.left?.height || 0, node.right?.height || 0) + 1;
 
         this.adjustHeight(node.parent);
     }
@@ -253,4 +250,4 @@ class BST<K, V> {
 }
 
 export default BST;
-export type { Node }
+export type { Node };
