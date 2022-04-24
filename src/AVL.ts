@@ -1,5 +1,6 @@
 import { BST } from "./index";
 import type { Node } from './BST';
+import InvalidOperationError from '../errors/InvalidOperationError';
 
 class AVL<K, V> extends BST<K, V> {
     constructor() {
@@ -102,6 +103,10 @@ class AVL<K, V> extends BST<K, V> {
     }
 
     public insert(key: K, value: V): Node<K, V> {
+        if(this.find(key)) {
+            throw new InvalidOperationError('AVL Error: Duplicate Keys not Allowed!')
+        }
+
         const node = super.insert(key, value);
         this.rebalance(node);
         return node;

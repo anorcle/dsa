@@ -1,5 +1,6 @@
 import { AVL } from "../src/index";
 import type { Node } from "../src/BST";
+import InvalidOperationError from '../errors/InvalidOperationError';
 
 const rand = (min: number, max: number): number => {
     return Math.floor(min + (max - min)*Math.random())
@@ -116,4 +117,15 @@ it('Test if all elements are present in backward direction', () => {
     for(let i = 0; i < 10000; ++i) {
         expect(array[i]).toBe(i + 1);
     }
+})
+
+it('Test Duplicate Prevention', () => {
+    const avl = new AVL<number, null>();
+    const duplicateKeyError = new InvalidOperationError('AVL Error: Duplicate Keys not Allowed!')
+
+    let array: number[] = [10, 12, 15, 6, 7, 9, 5, 2, 4]
+
+    array.forEach(elm => avl.insert(elm, null))
+
+    expect(() => avl.insert(2, null)).toThrowError(duplicateKeyError);
 })
