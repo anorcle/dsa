@@ -166,3 +166,44 @@ it('Test Range Search', () => {
     }
 
 })
+
+it('Test Height of BST', () => {
+    const bst = new BST<number, null>();
+
+    let array: number[] = [10, 10, 5, 6, 10, 9, 5, 2, 4, 4]
+
+    array.forEach(elm => bst.insert(elm, null))
+
+    expect(bst.height).toBe(5);
+
+    bst.delete(4);
+    expect(bst.height).toBe(4);
+
+    bst.delete(4);
+    expect(bst.height).toBe(4);
+
+    bst.delete(6);
+    expect(bst.height).toBe(4);
+
+    bst.delete(9);
+    expect(bst.height).toBe(3);
+
+    bst.delete(10);
+    expect(bst.height).toBe(3);
+
+    bst.delete(10);
+    expect(bst.height).toBe(3);
+
+    bst.delete(10);
+    expect(bst.height).toBe(2);
+    
+    bst.delete(5);
+    expect(bst.height).toBe(2);
+    
+    bst.delete(2);
+    expect(bst.height).toBe(1);
+
+    bst.delete(5);
+    expect(bst.height).toBe(0);
+
+})
