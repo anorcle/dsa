@@ -14,8 +14,16 @@ class AVL<K, V> extends BST<K, V> {
         if(left) {
             left.parent = parent;
             left.right = node;
+
             node.parent = left;
             node.left = lRight ? lRight : null;
+
+            if(lRight) lRight.parent = node;
+            if(parent) {
+                if (parent.right == node) parent.right = left;
+                else parent.left = left;
+            }
+
             this.adjustHeight(node);
             if(parent == null) {
                 this.$ROOT = left;
@@ -31,9 +39,18 @@ class AVL<K, V> extends BST<K, V> {
         if(right) {
             right.parent = parent;
             right.left = node;
+
             node.parent = right;
             node.right = rLeft ? rLeft : null;
+
+            if(rLeft) rLeft.parent = node;
+            if(parent) {
+                if (parent.right == node) parent.right = right;
+                else parent.left = right;
+            }
+
             this.adjustHeight(node);
+
             if(parent == null) {
                 this.$ROOT = right;
             }

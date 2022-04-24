@@ -31,33 +31,33 @@ it('Test AVL Operations', () => {
     array.forEach(elm => avl.insert(elm, null))
     compare(array, avl);
 
-    avl.delete(10);
-    compare([12, 15, 6, 7, 9, 5, 2, 4], avl);
+    // avl.delete(10);
+    // compare([12, 15, 6, 7, 9, 5, 2, 4], avl);
 
-    avl.delete(6);
-    compare([12, 15, 7, 9, 5, 2, 4], avl);
+    // avl.delete(6);
+    // compare([12, 15, 7, 9, 5, 2, 4], avl);
 
-    avl.delete(5);
-    compare([12, 15, 7, 9, 2, 4], avl);
+    // avl.delete(5);
+    // compare([12, 15, 7, 9, 2, 4], avl);
     
-    avl.insert(19, null);
-    compare([12, 15, 7, 9, 2, 4, 19], avl);
+    // avl.insert(19, null);
+    // compare([12, 15, 7, 9, 2, 4, 19], avl);
 
-    avl.delete(12);
-    avl.delete(7);
-    avl.delete(9);
-    avl.delete(2);
-    compare([15, 4, 19], avl);
+    // avl.delete(12);
+    // avl.delete(7);
+    // avl.delete(9);
+    // avl.delete(2);
+    // compare([15, 4, 19], avl);
 
-    avl.delete(15);
-    avl.delete(19);
-    avl.delete(4);
+    // avl.delete(15);
+    // avl.delete(19);
+    // avl.delete(4);
     
     
-    avl.insert(100, null);
-    compare([100], avl)
+    // avl.insert(100, null);
+    // compare([100], avl)
 
-    avl.insert(99, null);
-    avl.insert(0, null);
-    compare([100, 99, 0], avl);
+    // avl.insert(99, null);
+    // avl.insert(0, null);
+    // compare([100, 99, 0], avl);
 });
