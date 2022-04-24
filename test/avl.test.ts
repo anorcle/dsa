@@ -80,16 +80,7 @@ it('Test if all elements are present in forward direction', () => {
         avl.insert(i, null);
     }
 
-    const array: number[] = [];
-
-    const inorder = (root: Node<number, null> | null): void => {
-        if(root == null) return;
-        inorder(root.left);
-        array.push(root.key);
-        inorder(root.right);
-    }
-
-    inorder(avl.ROOT);
+    const array: number[] = avl.toArray;
 
     for(let i = 0; i < 10000; ++i) {
         expect(array[i]).toBe(i);
@@ -103,16 +94,7 @@ it('Test if all elements are present in backward direction', () => {
         avl.insert(i, null);
     }
 
-    const array: number[] = [];
-
-    const inorder = (root: Node<number, null> | null): void => {
-        if(root == null) return;
-        inorder(root.left);
-        array.push(root.key);
-        inorder(root.right);
-    }
-
-    inorder(avl.ROOT);
+    const array: number[] = avl.toArray;
 
     for(let i = 0; i < 10000; ++i) {
         expect(array[i]).toBe(i + 1);
