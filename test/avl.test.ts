@@ -72,7 +72,7 @@ it('Test AVL Height', () => {
     expect(avl.height).toBe(14);
 })
 
-it('Test if all elements are present', () => {
+it('Test if all elements are present in forward direction', () => {
     const avl = new AVL<number, null>();
 
     for(let i = 0; i < 10000; ++i) {
@@ -92,5 +92,28 @@ it('Test if all elements are present', () => {
 
     for(let i = 0; i < 10000; ++i) {
         expect(array[i]).toBe(i);
+    }
+})
+
+it('Test if all elements are present in backward direction', () => {
+    const avl = new AVL<number, null>();
+
+    for(let i = 10000; i > 0; --i) {
+        avl.insert(i, null);
+    }
+
+    const array: number[] = [];
+
+    const inorder = (root: Node<number, null> | null): void => {
+        if(root == null) return;
+        inorder(root.left);
+        array.push(root.key);
+        inorder(root.right);
+    }
+
+    inorder(avl.ROOT);
+
+    for(let i = 0; i < 10000; ++i) {
+        expect(array[i]).toBe(i + 1);
     }
 })
