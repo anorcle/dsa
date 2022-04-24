@@ -17,13 +17,13 @@ class Node<K, V> {
 }
 
 class BST<K, V> {
-    protected $ROOT: Node<K, V> | null;
+    public ROOT: Node<K, V> | null;
     constructor() {
-        this.$ROOT = null;
+        this.ROOT = null;
     }
 
     public get height(): number {
-        return this.$ROOT?.height || 0;
+        return this.ROOT?.height || 0;
     }
 
     private leftDescendant(node: Node<K, V>): Node<K, V> {
@@ -94,7 +94,7 @@ class BST<K, V> {
      * @param end Get first occurrence of node
      * @returns Node in BST | Null if node not found
      */
-    public find(key: K, end = false, root: Node<K, V> | null = this.$ROOT): Node<K, V> | null {
+    public find(key: K, end = false, root: Node<K, V> | null = this.ROOT): Node<K, V> | null {
         if (root == null) {
             return null;
         }
@@ -118,7 +118,7 @@ class BST<K, V> {
      * @param key target key to insert
      * @returns Node in BST | Null if tree is empty
      */
-    protected insertionPoint(key: K, root: Node<K, V> | null = this.$ROOT): Node<K, V> | null {
+    protected insertionPoint(key: K, root: Node<K, V> | null = this.ROOT): Node<K, V> | null {
         if (root == null) {
             return null;
         }
@@ -185,7 +185,7 @@ class BST<K, V> {
         const ref = this.insertionPoint(key);
 
         if (ref == null) {
-            this.$ROOT = node;
+            this.ROOT = node;
             return node;
         }
 
@@ -214,7 +214,7 @@ class BST<K, V> {
                     target.parent.right = left;
                 }
             } else {
-                this.$ROOT = left;
+                this.ROOT = left;
             }
             if (left) left.parent = target.parent;
             this.adjustHeight(target);

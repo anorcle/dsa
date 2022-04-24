@@ -26,7 +26,7 @@ class AVL<K, V> extends BST<K, V> {
 
             this.adjustHeight(node);
             if(parent == null) {
-                this.$ROOT = left;
+                this.ROOT = left;
             }
         }
     }
@@ -52,7 +52,7 @@ class AVL<K, V> extends BST<K, V> {
             this.adjustHeight(node);
 
             if(parent == null) {
-                this.$ROOT = right;
+                this.ROOT = right;
             }
         }
     }
