@@ -5,4 +5,4 @@ export { default as Deque } from './Deque';
 export { default as PriorityQueue } from './PriorityQueue';
 export { default as BST } from './BST';
 export { default as AVL } from './AVL';
-export * from './types/compare';
+export * from './types';
