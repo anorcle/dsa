@@ -1,3 +1,5 @@
+import { compare } from "./types";
+
 class Node<K, V> {
     public parent: Node<K, V> | null;
     public left: Node<K, V> | null;
@@ -18,8 +20,10 @@ class Node<K, V> {
 
 class BST<K, V> {
     protected $ROOT: Node<K, V> | null;
-    constructor() {
+    protected compare: compare<K>
+    constructor(compare: compare<K>) {
         this.$ROOT = null;
+        this.compare = compare;
     }
 
     public get height(): number {
@@ -52,7 +56,7 @@ class BST<K, V> {
             return null;
         }
 
-        if (node.key < node.parent.key) {
+        if (this.compare(node.key, node.parent.key) == -1) {
             return node.parent;
         } else {
             return this.rightAncestor(node.parent);
@@ -69,7 +73,7 @@ class BST<K, V> {
             return null;
         }
 
-        if (node.key >= node.parent.key) {
+        if (this.compare(node.key, node.parent.key) >= 0) {
             return node.parent;
         } else {
             return this.leftAncestor(node.parent);
@@ -96,12 +100,12 @@ class BST<K, V> {
             return null;
         }
 
-        if (end && key == root.key && root.right) {
+        if (end && this.compare(key, root.key) == 0 && root.right) {
             const newRef = this.find(key, end, root.right);
             return newRef?.key == root.key ? newRef : root;
-        } else if (key == root.key) {
+        } else if (this.compare(key, root.key) == 0) {
             return root;
-        } else if (key < root.key) {
+        } else if (this.compare(key, root.key) == -1) {
             return this.find(key, end, root.left);
         } else {
             return this.find(key, end, root.right);
@@ -120,11 +124,11 @@ class BST<K, V> {
             return null;
         }
 
-        if (key == root.key && root.right) {
+        if (this.compare(key, root.key) == 0 && root.right) {
             return this.insertionPoint(key, root.right);
-        } else if (key == root.key) {
+        } else if (this.compare(key, root.key) == 0) {
             return root;
-        } else if (key < root.key) {
+        } else if (this.compare(key, root.key) == -1) {
             return this.insertionPoint(key, root.left) || root;
         } else {
             return this.insertionPoint(key, root.right) || root;
@@ -167,8 +171,8 @@ class BST<K, V> {
         const list: Node<K, V>[] = [];
         let node = this.find(start);
 
-        while (node && node.key <= end) {
-            if (node.key >= start) {
+        while (node && this.compare(node.key, end) <= 0) {
+            if (this.compare(node.key, start) >= 0) {
                 list.push(node);
             }
             node = this.next(node);
@@ -186,7 +190,7 @@ class BST<K, V> {
             return node;
         }
 
-        if (ref.key > key) {
+        if (this.compare(ref.key, key) == 1) {
             ref.left = node;
             node.parent = ref;
         } else {
@@ -241,7 +245,7 @@ class BST<K, V> {
 
     public delete(key: K): void {
         const ref = this.find(key);
-        if (ref == null || ref.key != key) {
+        if (ref == null || this.compare(ref.key, key) != 0) {
             // tree empty or element not found
             return;
         }

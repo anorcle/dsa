@@ -4,7 +4,13 @@ const rand = (min: number, max: number): number => {
     return Math.floor(min + (max - min)*Math.random())
 }
 
-const compare = (array: number[], bst: BST<number, null>): void => {
+const compareNumber = (a: number, b: number): -1 | 0 | 1 => {
+    if(a < b) return -1;
+    if(a > b) return +1;
+    return 0;
+};
+
+const compareArray = (array: number[], bst: BST<number, null>): void => {
     array.sort((a, b) => a - b);
     let node = bst.find(array[0]);
     for(let i = 0; i < array.length; ++i) {
@@ -24,30 +30,30 @@ const compare = (array: number[], bst: BST<number, null>): void => {
 }
 
 it('Test BST Operations', () => {
-    const bst = new BST<number, null>();
+    const bst = new BST<number, null>(compareNumber);
 
     let array: number[] = [10, 12, 15, 6, 7, 9, 5, 2, 4]
 
     array.forEach(elm => bst.insert(elm, null))
-    compare(array, bst);
+    compareArray(array, bst);
 
     bst.delete(10);
-    compare([12, 15, 6, 7, 9, 5, 2, 4], bst);
+    compareArray([12, 15, 6, 7, 9, 5, 2, 4], bst);
 
     bst.delete(6);
-    compare([12, 15, 7, 9, 5, 2, 4], bst);
+    compareArray([12, 15, 7, 9, 5, 2, 4], bst);
 
     bst.delete(5);
-    compare([12, 15, 7, 9, 2, 4], bst);
+    compareArray([12, 15, 7, 9, 2, 4], bst);
     
     bst.insert(19, null);
-    compare([12, 15, 7, 9, 2, 4, 19], bst);
+    compareArray([12, 15, 7, 9, 2, 4, 19], bst);
 
     bst.delete(12);
     bst.delete(7);
     bst.delete(9);
     bst.delete(2);
-    compare([15, 4, 19], bst);
+    compareArray([15, 4, 19], bst);
 
     bst.delete(15);
     bst.delete(19);
@@ -55,37 +61,37 @@ it('Test BST Operations', () => {
     
     
     bst.insert(100, null);
-    compare([100], bst)
+    compareArray([100], bst)
 
     bst.insert(99, null);
     bst.insert(0, null);
-    compare([100, 99, 0], bst);
+    compareArray([100, 99, 0], bst);
 });
 
 it('Test BST with duplicate keys', () => {
-    const bst = new BST<number, null>();
+    const bst = new BST<number, null>(compareNumber);
 
     let array: number[] = [10, 10, 5, 6, 10, 9, 5, 2, 4, 4]
 
     array.forEach(elm => bst.insert(elm, null))
-    compare(array, bst);
+    compareArray(array, bst);
 
     bst.delete(10);
-    compare([10, 5, 6, 10, 9, 5, 2, 4, 4], bst);
+    compareArray([10, 5, 6, 10, 9, 5, 2, 4, 4], bst);
 
     bst.delete(6);
-    compare([10, 5, 10, 9, 5, 2, 4, 4], bst);
+    compareArray([10, 5, 10, 9, 5, 2, 4, 4], bst);
 
     bst.delete(5);
-    compare([10, 10, 9, 5, 2, 4, 4], bst);
+    compareArray([10, 10, 9, 5, 2, 4, 4], bst);
     
     bst.insert(9, null);
-    compare([10, 10, 9, 5, 2, 4, 4, 9], bst);
+    compareArray([10, 10, 9, 5, 2, 4, 4, 9], bst);
 
     bst.delete(10);
     bst.delete(5);
     bst.delete(4);
-    compare([10, 9, 2, 4, 9], bst);
+    compareArray([10, 9, 2, 4, 9], bst);
 
     bst.delete(10);
     bst.delete(9);
@@ -95,20 +101,20 @@ it('Test BST with duplicate keys', () => {
     
     
     bst.insert(100, null);
-    compare([100], bst)
+    compareArray([100], bst)
 
     bst.insert(99, null);
     bst.insert(0, null);
-    compare([100, 99, 0], bst);
+    compareArray([100, 99, 0], bst);
 
     bst.insert(100, null);
     bst.insert(99, null);
     bst.insert(0, null);
-    compare([100, 99, 0, 100, 99, 0], bst);
+    compareArray([100, 99, 0, 100, 99, 0], bst);
 });
 
 it('Test with randomized Data Set', () => {
-    const bst = new BST<number, null>();
+    const bst = new BST<number, null>(compareNumber);
 
     const array = [];
 
@@ -118,7 +124,7 @@ it('Test with randomized Data Set', () => {
         array.push(num);
     }
     array.sort();
-    compare(array, bst);
+    compareArray(array, bst);
 
     for(let i = 0; i < 1000; ++i) {
         const num = rand(0, 100);
@@ -130,11 +136,11 @@ it('Test with randomized Data Set', () => {
         }
 
     }
-    compare(array, bst);
+    compareArray(array, bst);
 })
 
 it('Test Range Search', () => {
-    const bst = new BST<number, null>();
+    const bst = new BST<number, null>(compareNumber);
 
     const array = [];
 
@@ -144,7 +150,7 @@ it('Test Range Search', () => {
         array.push(num);
     }
     array.sort();
-    compare(array, bst);
+    compareArray(array, bst);
 
     let num1 = rand(0, 100);
     let num2 = rand(0, 100);
@@ -168,7 +174,7 @@ it('Test Range Search', () => {
 })
 
 it('Test Height of BST', () => {
-    const bst = new BST<number, null>();
+    const bst = new BST<number, null>(compareNumber);
 
     let array: number[] = [10, 10, 5, 6, 10, 9, 5, 2, 4, 4]
 
