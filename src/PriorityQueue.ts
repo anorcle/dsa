@@ -1,11 +1,13 @@
 import InvalidOperationError from '../errors/InvalidOperationError';
+import type { compare } from './types/compare';
 
 class PriorityQueue<T> {
     private $ARRAY: T[];
-
-    constructor(initialArray: T[] = []) {
+    protected compare: compare<T>;
+    constructor(compare: compare<T>, array: T[] = []) {
+        this.compare = compare;
         this.$ARRAY = [];
-        initialArray.forEach(this.push.bind(this));
+        array.forEach(this.push.bind(this));
     }
 
     public get size(): number {
@@ -33,7 +35,7 @@ class PriorityQueue<T> {
     private shiftUp(node: number): void {
         let parent = this.parentIndex(node);
 
-        while (node > 0 && this.$ARRAY[parent] < this.$ARRAY[node]) {
+        while (node > 0 && this.compare(this.$ARRAY[parent], this.$ARRAY[node]) == -1) {
             this.swap(parent, node);
             node = parent;
             parent = this.parentIndex(node);
@@ -45,11 +47,11 @@ class PriorityQueue<T> {
         const left = this.leftChildIndex(node);
         const right = this.rightChildIndex(node);
 
-        if (left < this.size && this.$ARRAY[left] > this.$ARRAY[maxIndex]) {
+        if (left < this.size && this.compare(this.$ARRAY[left], this.$ARRAY[maxIndex]) == 1) {
             maxIndex = left;
         }
 
-        if (right < this.size && this.$ARRAY[right] > this.$ARRAY[maxIndex]) {
+        if (right < this.size && this.compare(this.$ARRAY[right], this.$ARRAY[maxIndex]) == 1) {
             maxIndex = right;
         }
 
