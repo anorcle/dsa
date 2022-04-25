@@ -3,12 +3,12 @@ import type { Node } from './BST';
 import type { compare } from './types/compare';
 import InvalidOperationError from '../errors/InvalidOperationError';
 
-class AVL<K, V> extends BST<K, V> {
-    constructor(compare: compare<K>) {
+class AVL<T> extends BST<T> {
+    constructor(compare: compare<T>) {
         super(compare);
     }
 
-    private rotateRight(node: Node<K, V>): void {
+    private rotateRight(node: Node<T>): void {
         const parent = node.parent;
         const left = node.left;
         const lRight = node.left?.right;
@@ -33,7 +33,7 @@ class AVL<K, V> extends BST<K, V> {
         }
     }
 
-    private rotateLeft(node: Node<K, V>): void {
+    private rotateLeft(node: Node<T>): void {
         const parent = node.parent;
         const right = node.right;
         const rLeft = node.right?.left;
@@ -59,7 +59,7 @@ class AVL<K, V> extends BST<K, V> {
         }
     }
 
-    private rebalanceRight(node: Node<K, V>): void {
+    private rebalanceRight(node: Node<T>): void {
         const left = node.left;
         if (left == null) throw new Error('AVL Error: Unexpected Error!');
 
@@ -73,7 +73,7 @@ class AVL<K, V> extends BST<K, V> {
         this.rotateRight(node);
     }
 
-    private rebalanceLeft(node: Node<K, V>): void {
+    private rebalanceLeft(node: Node<T>): void {
         const right = node.right;
         if (right == null) throw new Error('AVL Error: Unexpected Error!');
 
@@ -87,7 +87,7 @@ class AVL<K, V> extends BST<K, V> {
         this.rotateLeft(node);
     }
 
-    private rebalance(node: Node<K, V>): void {
+    private rebalance(node: Node<T>): void {
         const leftHeight = node.left?.height || 0;
         const rightHeight = node.right?.height || 0;
 
@@ -100,24 +100,24 @@ class AVL<K, V> extends BST<K, V> {
         if (node.parent) this.rebalance(node.parent);
     }
 
-    public insert(key: K, value: V): Node<K, V> {
-        if (this.find(key)) {
+    public insert(data: T): Node<T> {
+        if (this.find(data)) {
             throw new InvalidOperationError('AVL Error: Duplicate Keys not Allowed!');
         }
 
-        const node = super.insert(key, value);
+        const node = super.insert(data);
         this.rebalance(node);
         return node;
     }
 
-    public delete(key: K): void {
-        const ref = this.find(key);
-        if (ref == null || this.compare(ref.key, key) != 0) {
+    public delete(data: T): void {
+        const ref = this.find(data);
+        if (ref == null || this.compare(ref.data, data) != 0) {
             // tree empty or element not found
             return;
         }
         this.deleteElement(ref);
-        const parentOfReplacingElement = this.insertionPoint(key);
+        const parentOfReplacingElement = this.insertionPoint(data);
         if (parentOfReplacingElement) this.rebalance(parentOfReplacingElement);
     }
 }

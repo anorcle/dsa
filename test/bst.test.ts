@@ -10,7 +10,7 @@ const compareNumber = (a: number, b: number): -1 | 0 | 1 => {
     return 0;
 };
 
-const compareArray = (array: number[], bst: BST<number, null>): void => {
+const compareArray = (array: number[], bst: BST<number>): void => {
     array.sort((a, b) => a - b);
     let node = bst.find(array[0]);
     for(let i = 0; i < array.length; ++i) {
@@ -18,23 +18,23 @@ const compareArray = (array: number[], bst: BST<number, null>): void => {
             expect(node).not.toBeNull();
             continue;
         }
-        expect(node.key).toBe(array[i]);
+        expect(node.data).toBe(array[i]);
         node = bst.next(node);
     }
 
     node = bst.find(array[array.length - 1], true);
     for(let i = array.length - 1; node != null; --i) {
-        expect(node.key).toBe(array[i]);
+        expect(node.data).toBe(array[i]);
         node = bst.prev(node);
     }
 }
 
 it('Test BST Operations', () => {
-    const bst = new BST<number, null>(compareNumber);
+    const bst = new BST<number>(compareNumber);
 
     let array: number[] = [10, 12, 15, 6, 7, 9, 5, 2, 4]
 
-    array.forEach(elm => bst.insert(elm, null))
+    array.forEach(elm => bst.insert(elm))
     compareArray(array, bst);
 
     bst.delete(10);
@@ -46,7 +46,7 @@ it('Test BST Operations', () => {
     bst.delete(5);
     compareArray([12, 15, 7, 9, 2, 4], bst);
     
-    bst.insert(19, null);
+    bst.insert(19);
     compareArray([12, 15, 7, 9, 2, 4, 19], bst);
 
     bst.delete(12);
@@ -60,20 +60,20 @@ it('Test BST Operations', () => {
     bst.delete(4);
     
     
-    bst.insert(100, null);
+    bst.insert(100);
     compareArray([100], bst)
 
-    bst.insert(99, null);
-    bst.insert(0, null);
+    bst.insert(99);
+    bst.insert(0);
     compareArray([100, 99, 0], bst);
 });
 
 it('Test BST with duplicate keys', () => {
-    const bst = new BST<number, null>(compareNumber);
+    const bst = new BST<number>(compareNumber);
 
     let array: number[] = [10, 10, 5, 6, 10, 9, 5, 2, 4, 4]
 
-    array.forEach(elm => bst.insert(elm, null))
+    array.forEach(elm => bst.insert(elm))
     compareArray(array, bst);
 
     bst.delete(10);
@@ -85,7 +85,7 @@ it('Test BST with duplicate keys', () => {
     bst.delete(5);
     compareArray([10, 10, 9, 5, 2, 4, 4], bst);
     
-    bst.insert(9, null);
+    bst.insert(9);
     compareArray([10, 10, 9, 5, 2, 4, 4, 9], bst);
 
     bst.delete(10);
@@ -100,27 +100,27 @@ it('Test BST with duplicate keys', () => {
     bst.delete(9);
     
     
-    bst.insert(100, null);
+    bst.insert(100);
     compareArray([100], bst)
 
-    bst.insert(99, null);
-    bst.insert(0, null);
+    bst.insert(99);
+    bst.insert(0);
     compareArray([100, 99, 0], bst);
 
-    bst.insert(100, null);
-    bst.insert(99, null);
-    bst.insert(0, null);
+    bst.insert(100);
+    bst.insert(99);
+    bst.insert(0);
     compareArray([100, 99, 0, 100, 99, 0], bst);
 });
 
 it('Test with randomized Data Set', () => {
-    const bst = new BST<number, null>(compareNumber);
+    const bst = new BST<number>(compareNumber);
 
     const array = [];
 
     for(let i = 0; i < 10000; ++i) {
         const num = rand(0, 100);
-        bst.insert(num, null);
+        bst.insert(num);
         array.push(num);
     }
     array.sort();
@@ -140,13 +140,13 @@ it('Test with randomized Data Set', () => {
 })
 
 it('Test Range Search', () => {
-    const bst = new BST<number, null>(compareNumber);
+    const bst = new BST<number>(compareNumber);
 
     const array = [];
 
     for(let i = 0; i < 10000; ++i) {
         const num = rand(0, 100);
-        bst.insert(num, null);
+        bst.insert(num);
         array.push(num);
     }
     array.sort();
@@ -162,23 +162,23 @@ it('Test Range Search', () => {
     // same num
     const rangeResult1 = bst.rangeSearch(num1, num1);
     for(let i = 0; i < rangeResult1.length; ++i) {
-        expect(rangeResult1[i].key).toBe(array[start + i]);
+        expect(rangeResult1[i].data).toBe(array[start + i]);
     }
 
     // different num
     const rangeResult2 = bst.rangeSearch(num1, num2);
     for(let i = 0; i < rangeResult2.length; ++i) {
-        expect(rangeResult2[i].key).toBe(array[start + i]);
+        expect(rangeResult2[i].data).toBe(array[start + i]);
     }
 
 })
 
 it('Test Height of BST', () => {
-    const bst = new BST<number, null>(compareNumber);
+    const bst = new BST<number>(compareNumber);
 
     let array: number[] = [10, 10, 5, 6, 10, 9, 5, 2, 4, 4]
 
-    array.forEach(elm => bst.insert(elm, null))
+    array.forEach(elm => bst.insert(elm))
 
     expect(bst.height).toBe(5);
 

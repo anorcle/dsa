@@ -1,16 +1,14 @@
 import { compare } from './types';
 
-class Node<K, V> {
-    public parent: Node<K, V> | null;
-    public left: Node<K, V> | null;
-    public right: Node<K, V> | null;
-    public key: K;
-    public value: V;
+class Node<T> {
+    public parent: Node<T> | null;
+    public left: Node<T> | null;
+    public right: Node<T> | null;
+    public data: T;
     public height: number;
 
-    constructor(key: K, value: V) {
-        this.key = key;
-        this.value = value;
+    constructor(data: T) {
+        this.data = data;
         this.parent = null;
         this.left = null;
         this.right = null;
@@ -18,10 +16,10 @@ class Node<K, V> {
     }
 }
 
-class BST<K, V> {
-    protected $ROOT: Node<K, V> | null;
-    protected compare: compare<K>;
-    constructor(compare: compare<K>) {
+class BST<T> {
+    protected $ROOT: Node<T> | null;
+    protected compare: compare<T>;
+    constructor(compare: compare<T>) {
         this.$ROOT = null;
         this.compare = compare;
     }
@@ -30,7 +28,7 @@ class BST<K, V> {
         return this.$ROOT?.height || 0;
     }
 
-    private leftDescendant(node: Node<K, V>): Node<K, V> {
+    private leftDescendant(node: Node<T>): Node<T> {
         if (node.left == null) {
             return node;
         } else {
@@ -38,7 +36,7 @@ class BST<K, V> {
         }
     }
 
-    private rightDescendant(node: Node<K, V>): Node<K, V> {
+    private rightDescendant(node: Node<T>): Node<T> {
         if (node.right == null) {
             return node;
         } else {
@@ -49,14 +47,14 @@ class BST<K, V> {
     /**
      * ## Get Right Ancestor of a Node
      * @param node The reference node
-     * @returns The ancestor of a node with the next largest key | null if right ancestor doesn't exists
+     * @returns The ancestor of a node with the next largest data | null if right ancestor doesn't exists
      */
-    private rightAncestor(node: Node<K, V>): Node<K, V> | null {
+    private rightAncestor(node: Node<T>): Node<T> | null {
         if (node.parent == null) {
             return null;
         }
 
-        if (this.compare(node.key, node.parent.key) == -1) {
+        if (this.compare(node.data, node.parent.data) == -1) {
             return node.parent;
         } else {
             return this.rightAncestor(node.parent);
@@ -66,21 +64,21 @@ class BST<K, V> {
     /**
      * ## Get Left Ancestor of a Node
      * @param node The reference node
-     * @returns The ancestor of a node with the next largest key | null if right ancestor doesn't exists
+     * @returns The ancestor of a node with the next largest data | null if right ancestor doesn't exists
      */
-    private leftAncestor(node: Node<K, V>): Node<K, V> | null {
+    private leftAncestor(node: Node<T>): Node<T> | null {
         if (node.parent == null) {
             return null;
         }
 
-        if (this.compare(node.key, node.parent.key) >= 0) {
+        if (this.compare(node.data, node.parent.data) >= 0) {
             return node.parent;
         } else {
             return this.leftAncestor(node.parent);
         }
     }
 
-    protected adjustHeight(node: Node<K, V> | null): void {
+    protected adjustHeight(node: Node<T> | null): void {
         if (node == null) return;
 
         node.height = Math.max(node.left?.height || 0, node.right?.height || 0) + 1;
@@ -89,49 +87,49 @@ class BST<K, V> {
     }
 
     /**
-     * ## Find Node with `key` in BST
-     * It find the node with the given key and if node doesn't exists it return null
-     * @param key target key to search
+     * ## Find Node with `data` in BST
+     * It find the node with the given data and if node doesn't exists it return null
+     * @param data target data to search
      * @param end Get first occurrence of node
      * @returns Node in BST | Null if node not found
      */
-    public find(key: K, end = false, root: Node<K, V> | null = this.$ROOT): Node<K, V> | null {
+    public find(data: T, end = false, root: Node<T> | null = this.$ROOT): Node<T> | null {
         if (root == null) {
             return null;
         }
 
-        if (end && this.compare(key, root.key) == 0 && root.right) {
-            const newRef = this.find(key, end, root.right);
-            return newRef?.key == root.key ? newRef : root;
-        } else if (this.compare(key, root.key) == 0) {
+        if (end && this.compare(data, root.data) == 0 && root.right) {
+            const newRef = this.find(data, end, root.right);
+            return newRef?.data == root.data ? newRef : root;
+        } else if (this.compare(data, root.data) == 0) {
             return root;
-        } else if (this.compare(key, root.key) == -1) {
-            return this.find(key, end, root.left);
+        } else if (this.compare(data, root.data) == -1) {
+            return this.find(data, end, root.left);
         } else {
-            return this.find(key, end, root.right);
+            return this.find(data, end, root.right);
         }
     }
 
     /**
      * ## Find Insertion Point for new Node in BST
-     * It find the node with the given key and if node doesn't exists it return the position
+     * It find the node with the given data and if node doesn't exists it return the position
      * where the node can be inserted.
-     * @param key target key to insert
+     * @param data target data to insert
      * @returns Node in BST | Null if tree is empty
      */
-    protected insertionPoint(key: K, root: Node<K, V> | null = this.$ROOT): Node<K, V> | null {
+    protected insertionPoint(data: T, root: Node<T> | null = this.$ROOT): Node<T> | null {
         if (root == null) {
             return null;
         }
 
-        if (this.compare(key, root.key) == 0 && root.right) {
-            return this.insertionPoint(key, root.right);
-        } else if (this.compare(key, root.key) == 0) {
+        if (this.compare(data, root.data) == 0 && root.right) {
+            return this.insertionPoint(data, root.right);
+        } else if (this.compare(data, root.data) == 0) {
             return root;
-        } else if (this.compare(key, root.key) == -1) {
-            return this.insertionPoint(key, root.left) || root;
+        } else if (this.compare(data, root.data) == -1) {
+            return this.insertionPoint(data, root.left) || root;
         } else {
-            return this.insertionPoint(key, root.right) || root;
+            return this.insertionPoint(data, root.right) || root;
         }
     }
 
@@ -140,7 +138,7 @@ class BST<K, V> {
      * @param node The reference node
      * @returns Inorder Successor | null if current node is largest
      */
-    public next(node: Node<K, V>): Node<K, V> | null {
+    public next(node: Node<T>): Node<T> | null {
         if (node.right != null) {
             return this.leftDescendant(node.right);
         } else {
@@ -153,7 +151,7 @@ class BST<K, V> {
      * @param node The reference node
      * @returns Inorder Predecessor | null if current node is smallest
      */
-    public prev(node: Node<K, V>): Node<K, V> | null {
+    public prev(node: Node<T>): Node<T> | null {
         if (node.left != null) {
             return this.rightDescendant(node.left);
         } else {
@@ -167,12 +165,12 @@ class BST<K, V> {
      * @param end ending value for search
      * @returns A list of nodes within range [`start`, `end`]
      */
-    public rangeSearch(start: K, end: K): Node<K, V>[] {
-        const list: Node<K, V>[] = [];
+    public rangeSearch(start: T, end: T): Node<T>[] {
+        const list: Node<T>[] = [];
         let node = this.find(start);
 
-        while (node && this.compare(node.key, end) <= 0) {
-            if (this.compare(node.key, start) >= 0) {
+        while (node && this.compare(node.data, end) <= 0) {
+            if (this.compare(node.data, start) >= 0) {
                 list.push(node);
             }
             node = this.next(node);
@@ -181,16 +179,16 @@ class BST<K, V> {
         return list;
     }
 
-    public insert(key: K, value: V): Node<K, V> {
-        const node = new Node<K, V>(key, value);
-        const ref = this.insertionPoint(key);
+    public insert(data: T): Node<T> {
+        const node = new Node<T>(data);
+        const ref = this.insertionPoint(data);
 
         if (ref == null) {
             this.$ROOT = node;
             return node;
         }
 
-        if (this.compare(ref.key, key) == 1) {
+        if (this.compare(ref.data, data) == 1) {
             ref.left = node;
             node.parent = ref;
         } else {
@@ -202,7 +200,7 @@ class BST<K, V> {
         return node;
     }
 
-    public deleteElement(target: Node<K, V>): void {
+    public deleteElement(target: Node<T>): void {
         const left = target.left;
         const right = target.right;
 
@@ -227,8 +225,7 @@ class BST<K, V> {
             if (!successor) throw new Error('BST Error: Unexpected Bug!');
 
             // replace target with it's successor
-            target.key = successor.key;
-            target.value = successor.value;
+            target.data = successor.data;
 
             // remove successor and promote right
             if (successor.parent) {
@@ -243,24 +240,24 @@ class BST<K, V> {
         }
     }
 
-    public delete(key: K): void {
-        const ref = this.find(key);
-        if (ref == null || this.compare(ref.key, key) != 0) {
+    public delete(data: T): void {
+        const ref = this.find(data);
+        if (ref == null || this.compare(ref.data, data) != 0) {
             // tree empty or element not found
             return;
         }
         this.deleteElement(ref);
     }
 
-    private inorder(root: Node<K, V> | null, array: K[] = []): K[] {
+    private inorder(root: Node<T> | null, array: T[] = []): T[] {
         if (root == null) return array;
         this.inorder(root.left, array);
-        array.push(root.key);
+        array.push(root.data);
         this.inorder(root.right, array);
         return array;
     }
 
-    public get toArray(): K[] {
+    public get toArray(): T[] {
         return this.inorder(this.$ROOT, []);
     }
 }

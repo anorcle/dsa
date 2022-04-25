@@ -1,7 +1,7 @@
 import { AVL } from "../src/index";
 import InvalidOperationError from '../errors/InvalidOperationError';
 
-const compareArray = (array: number[], avl: AVL<number, null>): void => {
+const compareArray = (array: number[], avl: AVL<number>): void => {
     array.sort((a, b) => a - b);
     let node = avl.find(array[0]);
     for(let i = 0; i < array.length; ++i) {
@@ -9,13 +9,13 @@ const compareArray = (array: number[], avl: AVL<number, null>): void => {
             expect(node).not.toBeNull();
             continue;
         }
-        expect(node.key).toBe(array[i]);
+        expect(node.data).toBe(array[i]);
         node = avl.next(node);
     }
 
     node = avl.find(array[array.length - 1], true);
     for(let i = array.length - 1; node != null; --i) {
-        expect(node.key).toBe(array[i]);
+        expect(node.data).toBe(array[i]);
         node = avl.prev(node);
     }
 }
@@ -27,11 +27,11 @@ const compareNumber = (a: number, b: number): -1 | 0 | 1 => {
 };
 
 it('Test AVL Operations', () => {
-    const avl = new AVL<number, null>(compareNumber);
+    const avl = new AVL<number>(compareNumber);
 
     let array: number[] = [10, 12, 15, 6, 7, 9, 5, 2, 4]
 
-    array.forEach(elm => avl.insert(elm, null))
+    array.forEach(elm => avl.insert(elm))
     compareArray(array, avl);
 
     avl.delete(10);
@@ -43,7 +43,7 @@ it('Test AVL Operations', () => {
     avl.delete(5);
     compareArray([12, 15, 7, 9, 2, 4], avl);
     
-    avl.insert(19, null);
+    avl.insert(19);
     compareArray([12, 15, 7, 9, 2, 4, 19], avl);
 
     avl.delete(12);
@@ -57,28 +57,28 @@ it('Test AVL Operations', () => {
     avl.delete(4);
     
     
-    avl.insert(100, null);
+    avl.insert(100);
     compareArray([100], avl)
 
-    avl.insert(99, null);
-    avl.insert(0, null);
+    avl.insert(99);
+    avl.insert(0);
     compareArray([100, 99, 0], avl);
 });
 
 it('Test AVL Height', () => {
-    const avl = new AVL<number, null>(compareNumber);
+    const avl = new AVL<number>(compareNumber);
 
     for(let i = 0; i < 10000; ++i) {
-        avl.insert(i, null);
+        avl.insert(i);
     }
     expect(avl.height).toBe(14);
 })
 
 it('Test if all elements are present in forward direction', () => {
-    const avl = new AVL<number, null>(compareNumber);
+    const avl = new AVL<number>(compareNumber);
 
     for(let i = 0; i < 10000; ++i) {
-        avl.insert(i, null);
+        avl.insert(i);
     }
 
     const array: number[] = avl.toArray;
@@ -89,10 +89,10 @@ it('Test if all elements are present in forward direction', () => {
 })
 
 it('Test if all elements are present in backward direction', () => {
-    const avl = new AVL<number, null>(compareNumber);
+    const avl = new AVL<number>(compareNumber);
 
     for(let i = 10000; i > 0; --i) {
-        avl.insert(i, null);
+        avl.insert(i);
     }
 
     const array: number[] = avl.toArray;
@@ -103,14 +103,14 @@ it('Test if all elements are present in backward direction', () => {
 })
 
 it('Test Duplicate Prevention', () => {
-    const avl = new AVL<number, null>(compareNumber);
+    const avl = new AVL<number>(compareNumber);
     const duplicateKeyError = new InvalidOperationError('AVL Error: Duplicate Keys not Allowed!')
 
     let array: number[] = [10, 12, 15, 6, 7, 9, 5, 2, 4]
 
-    array.forEach(elm => avl.insert(elm, null))
+    array.forEach(elm => avl.insert(elm))
 
-    expect(() => avl.insert(2, null)).toThrowError(duplicateKeyError);
+    expect(() => avl.insert(2)).toThrowError(duplicateKeyError);
 })
 
 type obj = {
@@ -125,10 +125,10 @@ const compareObj = (a: obj, b: obj): -1 | 0 | 1 => {
 };
 
 it('Test AVL tree with Object', () => {
-    const avl = new AVL<obj, null>(compareObj);
+    const avl = new AVL<obj>(compareObj);
 
     for(let i = 10000; i > 0; --i) {
-        avl.insert({key: i, value: String(i)}, null);
+        avl.insert({key: i, value: String(i)});
     }
 
     const array: obj[] = avl.toArray;
