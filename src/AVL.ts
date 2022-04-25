@@ -1,10 +1,11 @@
 import { BST } from './index';
 import type { Node } from './BST';
+import type { compare } from './types/compare';
 import InvalidOperationError from '../errors/InvalidOperationError';
 
 class AVL<K, V> extends BST<K, V> {
-    constructor() {
-        super();
+    constructor(compare: compare<K>) {
+        super(compare);
     }
 
     private rotateRight(node: Node<K, V>): void {
@@ -111,7 +112,7 @@ class AVL<K, V> extends BST<K, V> {
 
     public delete(key: K): void {
         const ref = this.find(key);
-        if (ref == null || ref.key != key) {
+        if (ref == null || this.compare(ref.key, key) != 0) {
             // tree empty or element not found
             return;
         }
