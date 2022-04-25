@@ -1,4 +1,4 @@
-import { compare } from "./types";
+import { compare } from './types';
 
 class Node<K, V> {
     public parent: Node<K, V> | null;
@@ -20,7 +20,7 @@ class Node<K, V> {
 
 class BST<K, V> {
     protected $ROOT: Node<K, V> | null;
-    protected compare: compare<K>
+    protected compare: compare<K>;
     constructor(compare: compare<K>) {
         this.$ROOT = null;
         this.compare = compare;
