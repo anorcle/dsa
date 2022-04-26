@@ -101,7 +101,7 @@ class AVL<T> extends BST<T> {
     }
 
     public insert(data: T): Node<T> {
-        if (this.find(data)) {
+        if (this.findNode(data)) {
             throw new InvalidOperationError('AVL Error: Duplicate Keys not Allowed!');
         }
 
@@ -111,7 +111,7 @@ class AVL<T> extends BST<T> {
     }
 
     public delete(data: T): void {
-        const ref = this.find(data);
+        const ref = this.findNode(data);
         if (ref == null || this.compare(ref.data, data) != 0) {
             // tree empty or element not found
             return;

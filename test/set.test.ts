@@ -35,7 +35,7 @@ it('Test Set Operations', () => {
         {key1: 1, key2: 2, value: 100}
     ])
 
-    expect(set.find({key1: 1, key2: 1, value: 0})?.data).toEqual({key1: 1, key2: 1, value: 10})
+    expect(set.find({key1: 1, key2: 1, value: 0})).toEqual({key1: 1, key2: 1, value: 10})
 
     set.delete({key1: 1, key2: 1, value: 0});
     
