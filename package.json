@@ -1,5 +1,5 @@
 {
-  "name": "dsa-web",
+  "name": "@anorcle/dsa",
   "version": "0.2.0",
   "description": "Implementation of Complex Data Structures and Algorithms for Web",
   "main": "dist/index.js",
@@ -12,16 +12,17 @@
     "lint": "eslint src --ext .js,.ts",
     "lint:fix": "eslint src --fix --ext .js,.ts",
     "test": "jest --config jest.config.js",
-    "publish": "npm publish"
+    "publish": "npm publish --access public"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/anorcle/dsa.git.git"
   },
   "keywords": [
-    "boilerplate",
-    "typescript",
-    "npm package boilerplate"
+    "data-structures",
+    "algorithms",
+    "dsa",
+    "stl"
   ],
   "author": "Daniel Zuzevich",
   "license": "MIT",
