@@ -1,6 +1,6 @@
 import { AVL } from ".";
-import { Node } from "./BST";
-import { compare } from "./types";
+import type { Node } from "./BST";
+import type { compare } from "./types";
 
 class Set<T> extends AVL<T> {
     constructor(compare: compare<T>) {
