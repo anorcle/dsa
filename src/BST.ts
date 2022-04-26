@@ -93,20 +93,20 @@ class BST<T> {
      * @param end Get first occurrence of node
      * @returns Node in BST | Null if node not found
      */
-    public find(data: T, end = false, root: Node<T> | null = this.$ROOT): Node<T> | null {
+    public findNode(data: T, end = false, root: Node<T> | null = this.$ROOT): Node<T> | null {
         if (root == null) {
             return null;
         }
 
         if (end && this.compare(data, root.data) == 0 && root.right) {
-            const newRef = this.find(data, end, root.right);
+            const newRef = this.findNode(data, end, root.right);
             return newRef?.data == root.data ? newRef : root;
         } else if (this.compare(data, root.data) == 0) {
             return root;
         } else if (this.compare(data, root.data) == -1) {
-            return this.find(data, end, root.left);
+            return this.findNode(data, end, root.left);
         } else {
-            return this.find(data, end, root.right);
+            return this.findNode(data, end, root.right);
         }
     }
 
@@ -167,7 +167,7 @@ class BST<T> {
      */
     public rangeSearch(start: T, end: T): Node<T>[] {
         const list: Node<T>[] = [];
-        let node = this.find(start);
+        let node = this.findNode(start);
 
         while (node && this.compare(node.data, end) <= 0) {
             if (this.compare(node.data, start) >= 0) {
@@ -241,7 +241,7 @@ class BST<T> {
     }
 
     public delete(data: T): void {
-        const ref = this.find(data);
+        const ref = this.findNode(data);
         if (ref == null || this.compare(ref.data, data) != 0) {
             // tree empty or element not found
             return;
