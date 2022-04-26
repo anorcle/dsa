@@ -12,7 +12,7 @@ const compareNumber = (a: number, b: number): -1 | 0 | 1 => {
 
 const compareArray = (array: number[], bst: BST<number>): void => {
     array.sort((a, b) => a - b);
-    let node = bst.find(array[0]);
+    let node = bst.findNode(array[0]);
     for(let i = 0; i < array.length; ++i) {
         if(node == null) {
             expect(node).not.toBeNull();
@@ -22,7 +22,7 @@ const compareArray = (array: number[], bst: BST<number>): void => {
         node = bst.next(node);
     }
 
-    node = bst.find(array[array.length - 1], true);
+    node = bst.findNode(array[array.length - 1], true);
     for(let i = array.length - 1; node != null; --i) {
         expect(node.data).toBe(array[i]);
         node = bst.prev(node);

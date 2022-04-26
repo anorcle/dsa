@@ -3,7 +3,7 @@ import InvalidOperationError from '../errors/InvalidOperationError';
 
 const compareArray = (array: number[], avl: AVL<number>): void => {
     array.sort((a, b) => a - b);
-    let node = avl.find(array[0]);
+    let node = avl.findNode(array[0]);
     for(let i = 0; i < array.length; ++i) {
         if(node == null) {
             expect(node).not.toBeNull();
@@ -13,7 +13,7 @@ const compareArray = (array: number[], avl: AVL<number>): void => {
         node = avl.next(node);
     }
 
-    node = avl.find(array[array.length - 1], true);
+    node = avl.findNode(array[array.length - 1], true);
     for(let i = array.length - 1; node != null; --i) {
         expect(node.data).toBe(array[i]);
         node = avl.prev(node);
