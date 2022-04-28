@@ -1,6 +1,6 @@
 {
   "name": "@anorcle/dsa",
-  "version": "0.3.11",
+  "version": "1.0.0",
   "description": "Implementation of Complex Data Structures and Algorithms for Web",
   "type": "module",
   "main": "dist/cjs/index.js",
@@ -18,7 +18,7 @@
     "lint": "eslint src --ext .js,.ts",
     "lint:fix": "eslint src --fix --ext .js,.ts",
     "test": "jest --config jest.config.js",
-    "prepublish": "npm run build && npm run docs",
+    "prepublish": "npm run test && npm run build && npm run docs",
     "publish": "npm publish --access public"
   },
   "repository": {
