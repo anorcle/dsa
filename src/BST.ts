@@ -1,4 +1,4 @@
-import { compare } from './types';
+import { compare } from './types/index.js';
 
 class Node<T> {
     public parent: Node<T> | null;

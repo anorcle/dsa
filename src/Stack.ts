@@ -1,4 +1,4 @@
-import InvalidOperationError from '../errors/InvalidOperationError';
+import InvalidOperationError from './errors/InvalidOperationError.js';
 
 class Stack<T> {
     private array: T[];

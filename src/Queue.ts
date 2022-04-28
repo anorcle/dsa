@@ -1,5 +1,5 @@
-import InvalidOperationError from '../errors/InvalidOperationError';
-import { LinkedList } from './index';
+import InvalidOperationError from './errors/InvalidOperationError.js';
+import { LinkedList } from './index.js';
 
 class Queue<T> {
     private list: LinkedList<T>;

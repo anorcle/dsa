@@ -1,5 +1,5 @@
-import InvalidOperationError from '../errors/InvalidOperationError';
-import type { compare } from './types/compare';
+import InvalidOperationError from './errors/InvalidOperationError.js';
+import type { compare } from './types/index.js';
 
 class PriorityQueue<T> {
     private $ARRAY: T[];

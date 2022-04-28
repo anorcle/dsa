@@ -1,7 +1,7 @@
-import { BST } from './index';
-import type { Node } from './BST';
-import type { compare } from './types/compare';
-import InvalidOperationError from '../errors/InvalidOperationError';
+import { BST } from './index.js';
+import type { Node } from './BST.js';
+import type { compare } from './types/index.js';
+import InvalidOperationError from './errors/InvalidOperationError.js';
 
 class AVL<T> extends BST<T> {
     constructor(compare: compare<T>) {

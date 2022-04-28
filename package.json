@@ -1,17 +1,24 @@
 {
   "name": "@anorcle/dsa",
-  "version": "0.3.2",
+  "version": "0.3.11",
   "description": "Implementation of Complex Data Structures and Algorithms for Web",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
   "type": "module",
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/mjs/index.js"
+    }
+  },
   "scripts": {
-    "build": "tsc",
-    "docs": "typedoc --options typedoc.json",
+    "build": "rm -fr dist/* && tsc -p tsconfig-mjs.json && tsc -p tsconfig-cjs.json && node fix-module-type.js",
+    "docs": "rm -fr docs/* && typedoc --options typedoc.json",
     "format": "prettier --write \"src/**/*.(js|ts)\"",
     "lint": "eslint src --ext .js,.ts",
     "lint:fix": "eslint src --fix --ext .js,.ts",
     "test": "jest --config jest.config.js",
+    "prepublish": "npm run build && npm run docs",
     "publish": "npm publish --access public"
   },
   "repository": {
@@ -24,7 +31,11 @@
     "dsa",
     "stl"
   ],
-  "author": "Daniel Zuzevich",
+  "author": {
+    "name": "Suraj Jha",
+    "email": "contact@jhasuraj.com",
+    "url": "https://jhasuraj.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/anorcle/dsa.git/issues"
@@ -40,7 +51,7 @@
     "prettier": "^2.3.0",
     "ts-jest": "^26.4.1",
     "typedoc": "^0.22.15",
-    "typescript": "^4.0.3"
+    "typescript": "^4.6.3"
   },
   "files": [
     "dist/**/*"
