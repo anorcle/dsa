@@ -1,5 +1,5 @@
 import { LinkedList } from "../src/index";
-import InvalidOperationError from "../errors/InvalidOperationError"
+import InvalidOperationError from "../src/errors/InvalidOperationError"
 
 it('Test LinkedList Operations', () => {
     const list = new LinkedList<number>();

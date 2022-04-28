@@ -1,5 +1,5 @@
 import { Stack } from "../src/index";
-import InvalidOperationError from "../errors/InvalidOperationError"
+import InvalidOperationError from "../src/errors/InvalidOperationError"
 
 it('Tests Stack', () => {
     const stack = new Stack<number>();

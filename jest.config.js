@@ -1,7 +1,16 @@
-export default {
+/**  @type {import('@jest/types').Config.ProjectConfig} */
+const config = {
   transform: {
-    '^.+\\.(t|j)s$': 'ts-jest',
+    "\\.[jt]sx?$": "ts-jest",
   },
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(t|j)s$',
-  moduleFileExtensions: ['ts', 'js', 'json', 'node'],
+  "globals": {
+    "ts-jest": {
+      "useESM": true
+    }
+  },
+  moduleNameMapper: {
+    "(.+)\\.js": "$1"
+  }
 };
+
+export default config;

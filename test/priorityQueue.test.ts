@@ -1,5 +1,5 @@
 import { PriorityQueue } from "../src/index";
-import InvalidOperationError from "../errors/InvalidOperationError";
+import InvalidOperationError from "../src/errors/InvalidOperationError";
 
 const compareNumber = (a: number, b: number): -1 | 0 | 1 => {
     if(a < b) return -1;

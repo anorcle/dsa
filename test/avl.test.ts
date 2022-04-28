@@ -1,5 +1,5 @@
 import { AVL } from "../src/index";
-import InvalidOperationError from '../errors/InvalidOperationError';
+import InvalidOperationError from '../src/errors/InvalidOperationError';
 
 const compareArray = (array: number[], avl: AVL<number>): void => {
     array.sort((a, b) => a - b);

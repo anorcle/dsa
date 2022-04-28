@@ -1,5 +1,5 @@
 import { Queue } from "../src/index";
-import InvalidOperationError from "../errors/InvalidOperationError";
+import InvalidOperationError from "../src/errors/InvalidOperationError";
 
 it('Tests Queue', () => {
     const queue = new Queue<number>();

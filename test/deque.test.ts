@@ -1,5 +1,5 @@
 import { Deque } from "../src/index";
-import InvalidOperationError from "../errors/InvalidOperationError";
+import InvalidOperationError from "../src/errors/InvalidOperationError";
 
 it('Tests Deque', () => {
     const deque = new Deque<number>();
