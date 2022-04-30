@@ -9,6 +9,7 @@ Structures and Algorithms for web Developers.
 ![License](https://img.shields.io/github/license/anorcle/dsa)
 [![Tweet](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fanorcle%2Fdsa)](https://twitter.com/intent/tweet?text=Data+Structures+and+Algorithms+for+Web+😉:&url=https%3A%2F%2Fgithub.com%2Fanorcle%2Fdsa)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fanorcle.github.io%2Fdsa%2F)](https://anorcle.github.io/dsa/)
+[![npm (scoped)](https://img.shields.io/npm/v/@anorcle/dsa)](https://www.npmjs.com/package/@anorcle/dsa)
 [![GitHub](https://img.shields.io/github/stars/anorcle/dsa?style=social)](https://github.com/anorcle/dsa/)
 
 ## [List of Implemented Data Structures](https://anorcle.github.io/dsa/modules.html)
