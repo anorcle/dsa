@@ -18,8 +18,8 @@ Structures and Algorithms for web Developers.
 - [Doubly Linked List](https://anorcle.github.io/dsa/classes/LinkedList.html)
 - [Set (Ordered)](https://anorcle.github.io/dsa/classes/Set.html)
 - [Priority Queue](https://anorcle.github.io/dsa/classes/PriorityQueue.html)
-  - Min Heap
-  - Max Heap
+  - [Min Heap](#min-heap)
+  - [Max Heap](#max-heap)
 - [Queue](https://anorcle.github.io/dsa/classes/Queue.html)
 - [Deque](https://anorcle.github.io/dsa/classes/Deque.html)
 - [Stack](https://anorcle.github.io/dsa/classes/Stack.html)
