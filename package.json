@@ -12,14 +12,19 @@
     }
   },
   "scripts": {
-    "build": "rm -fr dist/* && tsc -p tsconfig-mjs.json && tsc -p tsconfig-cjs.json && node fix-module-type.js",
-    "docs": "rm -fr docs/* && typedoc --options typedoc.json",
     "format": "prettier --write \"src/**/*.(js|ts)\"",
     "lint": "eslint src --ext .js,.ts",
     "lint:fix": "eslint src --fix --ext .js,.ts",
     "test": "jest --config jest.config.js",
+    "build": "rm -fr dist/* && tsc -p tsconfig-mjs.json && tsc -p tsconfig-cjs.json && node fix-module-type.js",
+    "docs": "rm -fr docs/* && typedoc --options typedoc.json",
     "prepublish": "npm run test && npm run build && npm run docs",
-    "publish": "npm publish --access public"
+    "fix:patch": "npm version patch",
+    "fix:minor": "npm version minor",
+    "fix:major": "npm version major",
+    "publish:github": "npm publish --registry https://npm.pkg.github.com --access public",
+    "publish:npm": "npm publish --registry https://registry.npmjs.org --access public",
+    "publish": "npm run publish:github && npm run publish:npm"
   },
   "repository": {
     "type": "git",
