@@ -24,7 +24,8 @@
     "fix:major": "npm version major",
     "publish:github": "npm publish --registry https://npm.pkg.github.com --access public",
     "publish:npm": "npm publish --registry https://registry.npmjs.org --access public",
-    "publish": "npm run publish:github && npm run publish:npm"
+    "publish": "npm run publish:github && npm run publish:npm",
+    "coverage": "npx jest --coverage"
   },
   "repository": {
     "type": "git",
